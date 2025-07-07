@@ -1,0 +1,27 @@
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cho vk siêu thúi</title> 
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="heart-wrapper">
+    <h1 class="main-text">Thi khùng nhất thế giới</h1> 
+    <button onclick="showQuestion()">👉 Mình có thắc mắc</button> 
+  </div>
+
+  <div id="question-box" class="hidden">
+    <p>Thi thúi có nhớ anh miếng nào không?</p>
+    <button onclick="checkAnswer('A')">A. Siêu siêu siêu nhớ</button>
+    <button onclick="checkAnswer('B')">B. Cũng bình thường</button>
+    <p id="result-text"></p>
+  </div>
+
+  <div id="boom" class="hidden">
+    <h2>khả năng có hạn, hết rồi, vk cười lên đi =)))</h2>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
