@@ -1,27 +1,46 @@
+<!-- index.html -->
 <html lang="vi">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cho vk siêu thúi</title> 
-  <link rel="stylesheet" href="style.css"/>
-</head>
-<body>
-  <div class="heart-wrapper">
-    <h1 class="main-text">Thi khùng nhất thế giới</h1> 
-    <button onclick="showQuestion()">👉 Mình có thắc mắc</button> 
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dự án tình cảm cho vk</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="stars"></div>
+    <div class="container">
+      <h1 class="question">Thi thúi có nhớ mình không?</h1>
+      <div class="answers">
+        <button class="btn" data-answer="A">A. Siêu siêu siêu nhớ</button>
+        <button class="btn" data-answer="B">B. Cũng bình thường</button>
+      </div>
+    </div>
 
-  <div id="question-box" class="hidden">
-    <p>Thi thúi có nhớ anh miếng nào không?</p>
-    <button onclick="checkAnswer('A')">A. Siêu siêu siêu nhớ</button>
-    <button onclick="checkAnswer('B')">B. Cũng bình thường</button>
-    <p id="result-text"></p>
-  </div>
+    <div class="effect-screen hidden" id="effect-screen">
+      <div id="effect-text"></div>
+      <div id="effect-icon"></div>
+    </div>
 
-  <div id="boom" class="hidden">
-    <h2>khả năng có hạn, hết rồi, vk cười lên đi =)))</h2>
-  </div>
+    <div class="password-screen hidden">
+      <h2>Nhập mật khẩu để mở quà cuối cùng</h2>
+      <div class="keypad">
+        <div class="code-display" id="code-display">----</div>
+        <div class="keys">
+          <button class="key">1</button><button class="key">2</button><button class="key">3</button>
+          <button class="key">4</button><button class="key">5</button><button class="key">6</button>
+          <button class="key">7</button><button class="key">8</button><button class="key">9</button>
+          <button class="key">0</button>
+          <button class="key clear">X</button>
+        </div>
+      </div>
+    </div>
 
-  <script src="script.js"></script>
-</body>
+    <div class="final-screen hidden">
+      <canvas id="fireworks"></canvas>
+      <h1 class="final-text">Cưng vợ số 1, project của chồng làm xàm, cười lên =)))</h1>
+      <audio id="final-audio" src="https://www.youtube.com/embed/IgIqM68qvF0?si=z-XTG6uomucsjkuI" autoplay loop></audio>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
 </html>
