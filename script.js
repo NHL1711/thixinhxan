@@ -8,8 +8,10 @@ const keypad = document.querySelectorAll('.key');
 const codeDisplay = document.getElementById('code-display');
 const finalScreen = document.querySelector('.final-screen');
 const finalAudio = document.getElementById('final-audio');
+const stars = document.querySelector('.stars');
 
 let password = '';
+let wrongAttempts = 0;
 const correctPassword = '1711';
 
 buttons.forEach(button => {
@@ -45,6 +47,15 @@ keypad.forEach(key => {
     }
     codeDisplay.innerText = password.padEnd(4, '-');
 
+    if (password.length === 4 && password !== correctPassword) {
+      wrongAttempts++;
+      password = '';
+      codeDisplay.innerText = '----';
+      if (wrongAttempts >= 2) {
+        showEasterEgg();
+      }
+    }
+
     if (password === correctPassword) {
       passwordScreen.classList.add('hidden');
       finalScreen.classList.remove('hidden');
@@ -52,6 +63,21 @@ keypad.forEach(key => {
     }
   });
 });
+
+function showEasterEgg() {
+  passwordScreen.classList.add('shake');
+  setTimeout(() => passwordScreen.classList.remove('shake'), 500);
+  alert('Thi thúi quắc bị khùng');
+  const emoji = document.createElement('div');
+  emoji.innerText = '💔🥴💥';
+  emoji.style.position = 'fixed';
+  emoji.style.top = '10px';
+  emoji.style.left = '50%';
+  emoji.style.transform = 'translateX(-50%)';
+  emoji.style.fontSize = '3rem';
+  emoji.style.animation = 'fall 2s forwards';
+  document.body.appendChild(emoji);
+}
 
 function startFireworks() {
   const canvas = document.getElementById('fireworks');
@@ -96,3 +122,27 @@ function startFireworks() {
   animate();
   finalAudio.play();
 }
+
+// Easter egg animation
+const style = document.createElement('style');
+style.innerHTML = `
+  .shake {
+    animation: shake 0.5s;
+  }
+
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    75% { transform: translateX(-10px); }
+    100% { transform: translateX(0); }
+  }
+
+  @keyframes fall {
+    to {
+      top: 90%;
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
