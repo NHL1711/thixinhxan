@@ -1,46 +1,44 @@
-<!-- index.html -->
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dự án tình cảm cho vk</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="stars"></div>
-    <div class="container">
-      <h1 class="question">Thi thúi có nhớ mình không?</h1>
-      <div class="answers">
-        <button class="btn" data-answer="A">A. Siêu siêu siêu nhớ</button>
-        <button class="btn" data-answer="B">B. Cũng bình thường</button>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <title>Project yêu thương</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="question-screen">
+    <h1 class="question-text">Thi thúi có nhớ mình không?</h1>
+    <div class="button-group">
+      <button class="btn" data-answer="A">A. Siêu siêu siêu nhớ</button>
+      <button class="btn" data-answer="B">B. Cũng bình thường</button>
     </div>
-
-    <div class="effect-screen hidden" id="effect-screen">
-      <div id="effect-text"></div>
-      <div id="effect-icon"></div>
+  </div>
+  <div class="effect-screen hidden" id="effect-screen">
+    <h2 id="effect-text"></h2>
+    <div id="effect-icon"></div>
+  </div>
+  <div class="password-screen hidden">
+    <h2>Nhập mật khẩu để mở bất ngờ:</h2>
+    <div id="code-display">----</div>
+    <div class="keypad">
+      <button class="key">1</button>
+      <button class="key">2</button>
+      <button class="key">3</button>
+      <button class="key">4</button>
+      <button class="key">5</button>
+      <button class="key">6</button>
+      <button class="key">7</button>
+      <button class="key">8</button>
+      <button class="key">9</button>
+      <button class="key clear">X</button>
+      <button class="key">0</button>
     </div>
-
-    <div class="password-screen hidden">
-      <h2>Nhập mật khẩu để mở quà cuối cùng</h2>
-      <div class="keypad">
-        <div class="code-display" id="code-display">----</div>
-        <div class="keys">
-          <button class="key">1</button><button class="key">2</button><button class="key">3</button>
-          <button class="key">4</button><button class="key">5</button><button class="key">6</button>
-          <button class="key">7</button><button class="key">8</button><button class="key">9</button>
-          <button class="key">0</button>
-          <button class="key clear">X</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="final-screen hidden">
-      <canvas id="fireworks"></canvas>
-      <h1 class="final-text">Cưng vợ số 1, project của chồng làm xàm, cười lên =)))</h1>
-      <audio id="final-audio" src="https://www.youtube.com/embed/IgIqM68qvF0?si=z-XTG6uomucsjkuI" autoplay loop></audio>
-    </div>
-
-    <script src="script.js"></script>
-  </body>
+  </div>
+  <div class="final-screen hidden">
+    <canvas id="fireworks"></canvas>
+    <h2 class="final-text">Cưng vợ số 1, project của chồng làm xàm, cười lên =)))</h2>
+    <audio id="final-audio" src="https://youtu.be/IgIqM68qvF0?si=6CpUXmaZTYrHwnfu" autoplay loop></audio>
+  </div>
+  <script src="script.js"></script>
+</body>
 </html>
