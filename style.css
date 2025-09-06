@@ -6,20 +6,27 @@ body {
   color: white;
   text-align: center;
   overflow: hidden;
+  height: 100vh;
 }
 
-/* Ẩn hiện màn hình */
-.hidden {
-  display: none;
-}
-
-.question-screen, .effect-screen, .password-screen, .final-screen {
+/* Mỗi màn hình full */
+.screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
 }
 
+.hidden {
+  display: none !important;
+}
+
+/* Buttons */
 .button-group {
   margin-top: 20px;
 }
@@ -57,14 +64,12 @@ body {
 
 #code-display {
   font-size: 2rem;
-  margin-bottom: 15px;
+  margin: 15px 0;
   letter-spacing: 10px;
 }
 
 /* Final screen */
 .final-screen {
-  width: 100%;
-  height: 100%;
   background: black;
 }
 
@@ -75,8 +80,7 @@ body {
 }
 
 .final-text {
-  position: relative;
-  top: 40%;
+  z-index: 2;
   font-size: 2rem;
   color: pink;
 }
