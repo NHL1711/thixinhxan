@@ -1,148 +1,133 @@
-// script.js
-const buttons = document.querySelectorAll('.btn');
-const effectScreen = document.getElementById('effect-screen');
-const effectText = document.getElementById('effect-text');
-const effectIcon = document.getElementById('effect-icon');
-const passwordScreen = document.querySelector('.password-screen');
-const keypad = document.querySelectorAll('.key');
-const codeDisplay = document.getElementById('code-display');
-const finalScreen = document.querySelector('.final-screen');
-const finalAudio = document.getElementById('final-audio');
-const stars = document.querySelector('.stars');
+document.addEventListener("DOMContentLoaded", () => {
+  const passwordScreen = document.querySelector(".password-screen");
+  const questionScreen = document.querySelector(".question-screen");
+  const effectScreen = document.getElementById("effect-screen");
+  const finalScreen = document.querySelector(".final-screen");
 
-let password = '';
-let wrongAttempts = 0;
-const correctPassword = '1711';
+  const codeDisplay = document.getElementById("code-display");
+  const keys = document.querySelectorAll(".key");
 
-buttons.forEach(button => {
-  button.addEventListener('click', () => {
-    const answer = button.dataset.answer;
-    effectScreen.classList.remove('hidden');
+  const questionButtons = document.querySelectorAll(".btn");
+  const effectText = document.getElementById("effect-text");
+  const effectIcon = document.getElementById("effect-icon");
 
-    if (answer === 'A') {
-      effectScreen.style.background = '#ffe4ec';
-      effectText.innerText = 'Ơ hay vậy là biết nhớ mình mà không cứng miệng luôn này';
-      effectIcon.innerHTML = '💖';
-      effectIcon.style.fontSize = '5rem';
-    } else {
-      effectScreen.style.background = '#d0f0ff';
-      effectText.innerText = 'Biết thế nào vk cũng chọn cái này, có anh là nhớ nhiều thôi';
-      effectIcon.innerHTML = '🌧️☁️';
-      effectIcon.style.fontSize = '4rem';
-    }
+  let inputCode = "";
+  let wrongAttempts = 0;
+  const correctCode = "1711";
 
-    setTimeout(() => {
-      effectScreen.classList.add('hidden');
-      passwordScreen.classList.remove('hidden');
-    }, 5000);
+  // Xử lý nhập mật khẩu
+  keys.forEach(key => {
+    key.addEventListener("click", () => {
+      if (key.classList.contains("clear")) {
+        inputCode = inputCode.slice(0, -1);
+      } else {
+        inputCode += key.textContent;
+      }
+
+      codeDisplay.textContent = inputCode.padEnd(4, "-");
+
+      if (inputCode.length === 4) {
+        if (inputCode === correctCode) {
+          // Đúng mật khẩu → sang màn hình câu hỏi
+          passwordScreen.classList.add("hidden");
+          questionScreen.classList.remove("hidden");
+          inputCode = "";
+          codeDisplay.textContent = "----";
+        } else {
+          wrongAttempts++;
+          inputCode = "";
+          codeDisplay.textContent = "----";
+
+          if (wrongAttempts >= 2) {
+            alert("Thi thúi quắc bị khùng");
+          } else {
+            alert("Sai rồi, thử lại nhé!");
+          }
+        }
+      }
+    });
   });
-});
 
-keypad.forEach(key => {
-  key.addEventListener('click', () => {
-    if (key.classList.contains('clear')) {
-      password = '';
-    } else {
-      if (password.length < 4) password += key.innerText;
-    }
-    codeDisplay.innerText = password.padEnd(4, '-');
+  // Xử lý câu hỏi
+  questionButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      questionScreen.classList.add("hidden");
+      effectScreen.classList.remove("hidden");
 
-    if (password.length === 4 && password !== correctPassword) {
-      wrongAttempts++;
-      password = '';
-      codeDisplay.innerText = '----';
-      if (wrongAttempts >= 2) {
-        showEasterEgg();
+      if (btn.dataset.answer === "A") {
+        document.body.style.backgroundColor = "pink";
+        effectText.textContent = "Ơ hay vậy là biết nhớ mình mà không cứng miệng luôn này";
+        effectIcon.innerHTML = "❤️";
+      } else {
+        document.body.style.backgroundColor = "lightblue";
+        effectText.textContent = "Biết thế nào vk cũng chọn cái này, có anh là nhớ nhiều thôi";
+        effectIcon.innerHTML = "☁️💧";
+      }
+
+      // Sau 3 giây chuyển sang màn hình cuối
+      setTimeout(() => {
+        effectScreen.classList.add("hidden");
+        document.body.style.backgroundColor = "black";
+        finalScreen.classList.remove("hidden");
+        startFireworks();
+      }, 3000);
+    });
+  });
+
+  // Hiệu ứng pháo hoa
+  function startFireworks() {
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.radius = Math.random() * 3 + 2;
+        this.speedX = (Math.random() - 0.5) * 6;
+        this.speedY = (Math.random() - 0.5) * 6;
+        this.alpha = 1;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.alpha -= 0.02;
+      }
+      draw() {
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
       }
     }
 
-    if (password === correctPassword) {
-      passwordScreen.classList.add('hidden');
-      finalScreen.classList.remove('hidden');
-      startFireworks();
+    function createFirework() {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height / 2;
+      const colors = ["#ff4d4d", "#ffcc00", "#66ff66", "#66ccff", "#ff66cc"];
+      for (let i = 0; i < 50; i++) {
+        particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
+      }
     }
-  });
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, i) => {
+        p.update();
+        p.draw();
+        if (p.alpha <= 0) particles.splice(i, 1);
+      });
+      requestAnimationFrame(animate);
+    }
+
+    setInterval(createFirework, 800);
+    animate();
+  }
 });
-
-function showEasterEgg() {
-  passwordScreen.classList.add('shake');
-  setTimeout(() => passwordScreen.classList.remove('shake'), 500);
-  alert('Thi thúi quắc bị khùng');
-  const emoji = document.createElement('div');
-  emoji.innerText = '💔🥴💥';
-  emoji.style.position = 'fixed';
-  emoji.style.top = '10px';
-  emoji.style.left = '50%';
-  emoji.style.transform = 'translateX(-50%)';
-  emoji.style.fontSize = '3rem';
-  emoji.style.animation = 'fall 2s forwards';
-  document.body.appendChild(emoji);
-}
-
-function startFireworks() {
-  const canvas = document.getElementById('fireworks');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const particles = [];
-
-  function createParticle() {
-    return {
-      x: canvas.width / 2,
-      y: canvas.height / 2,
-      radius: Math.random() * 4 + 1,
-      color: `hsl(${Math.random() * 360}, 100%, 60%)`,
-      dx: (Math.random() - 0.5) * 10,
-      dy: (Math.random() - 0.5) * 10,
-      alpha: 1,
-    };
-  }
-
-  for (let i = 0; i < 100; i++) {
-    particles.push(createParticle());
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-      ctx.globalAlpha = p.alpha;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.fill();
-      p.x += p.dx;
-      p.y += p.dy;
-      p.alpha -= 0.01;
-    });
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-  finalAudio.play();
-}
-
-// Easter egg animation
-const style = document.createElement('style');
-style.innerHTML = `
-  .shake {
-    animation: shake 0.5s;
-  }
-
-  @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-10px); }
-    50% { transform: translateX(10px); }
-    75% { transform: translateX(-10px); }
-    100% { transform: translateX(0); }
-  }
-
-  @keyframes fall {
-    to {
-      top: 90%;
-      opacity: 0;
-    }
-  }
-`;
-document.head.appendChild(style);
