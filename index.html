@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -6,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Màn hình câu hỏi -->
   <div class="question-screen">
     <h1 class="question-text">Thi thúi có nhớ mình không?</h1>
     <div class="button-group">
@@ -13,10 +15,14 @@
       <button class="btn" data-answer="B">B. Cũng bình thường</button>
     </div>
   </div>
+
+  <!-- Hiệu ứng khi chọn -->
   <div class="effect-screen hidden" id="effect-screen">
     <h2 id="effect-text"></h2>
     <div id="effect-icon"></div>
   </div>
+
+  <!-- Màn hình nhập mật khẩu -->
   <div class="password-screen hidden">
     <h2>Nhập mật khẩu để mở bất ngờ:</h2>
     <div id="code-display">----</div>
@@ -34,12 +40,15 @@
       <button class="key">0</button>
     </div>
   </div>
+
+  <!-- Màn hình cuối -->
   <div class="final-screen hidden">
     <canvas id="fireworks"></canvas>
     <h2 class="final-text">Cưng vợ số 1, làm xàm, vk thúi um sùm cười lên =)))</h2>
-    <audio id="final-audio" src="https://youtu.be/IgIqM68qvF0?si=6CpUXmaZTYrHwnfu" autoplay loop></audio>
+    <!-- Nhạc nền (bạn cần thay link YouTube bằng file mp3 trực tiếp) -->
+    <audio id="final-audio" src="music.mp3" autoplay loop></audio>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
-
