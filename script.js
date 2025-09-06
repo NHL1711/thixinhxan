@@ -23,7 +23,7 @@ buttons.forEach(button => {
       effectIcon.style.fontSize = '5rem';
     } else {
       effectScreen.style.background = '#d0f0ff';
-      effectText.innerText = 'Biết thế nào vk cũng chọn cái này, có anh là nhớ nhiều thôi';
+      effectText.innerText = 'Biết thế nào vk cũng chọn cái này, có mình là nhớ nhiều thôi';
       effectIcon.innerHTML = '🌧️☁️';
       effectIcon.style.fontSize = '4rem';
     }
@@ -118,3 +118,4 @@ function startFireworks() {
 
   animate();
 }
+
